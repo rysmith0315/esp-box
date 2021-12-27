@@ -63,7 +63,7 @@ void ui_status_bar_init(lv_color_t color)
         label_clock = lv_label_create(lv_scr_act());
         lv_obj_add_flag(label_clock, LV_OBJ_FLAG_CLICKABLE);
         lv_obj_set_ext_click_area(label_clock, 15);
-        lv_label_set_text_static(label_clock, "08:00");
+        lv_label_set_text_static(label_clock, "08:00 AM");
         lv_obj_set_style_text_font(label_clock, &font_en_16, 0);
         lv_obj_set_style_text_color(label_clock, color, 0);
         lv_obj_align(label_clock, LV_ALIGN_TOP_LEFT, 10, 5);
@@ -78,8 +78,21 @@ void ui_status_bar_init(lv_color_t color)
         lv_obj_set_style_text_font(label_wifi, &lv_font_montserrat_16, LV_STATE_DEFAULT);
         lv_obj_set_style_text_color(label_wifi, color, LV_STATE_DEFAULT);
         lv_obj_set_style_text_color(label_wifi, lv_color_make(192, 192, 192), LV_STATE_PRESSED);
-        lv_obj_align(label_wifi, LV_ALIGN_TOP_LEFT, 60, 5);
+        lv_obj_align(label_wifi, LV_ALIGN_TOP_LEFT, 80, 5);
         lv_obj_add_event_cb(label_wifi, btn_network_cb, LV_EVENT_CLICKED, NULL);
+    }
+
+    static lv_obj_t *btn_eq = NULL;
+    if (NULL == btn_eq) {
+        btn_eq = lv_label_create(lv_scr_act());
+        lv_obj_add_flag(btn_eq, LV_OBJ_FLAG_CLICKABLE);
+        lv_obj_set_ext_click_area(btn_eq, 20);
+        lv_obj_set_style_text_font(btn_eq, &lv_font_montserrat_16, LV_STATE_DEFAULT);
+        lv_obj_set_style_text_color(btn_eq, color, LV_STATE_DEFAULT);
+        lv_obj_set_style_text_color(btn_eq, lv_color_make(192, 192, 192), LV_STATE_PRESSED);
+        lv_label_set_text_static(btn_eq, LV_SYMBOL_WARNING);
+        lv_obj_align(btn_eq, LV_ALIGN_TOP_RIGHT, -70, 7);
+        lv_obj_add_event_cb(btn_eq, btn_app_cb, LV_EVENT_CLICKED, NULL);
     }
 
     static lv_obj_t *btn_app = NULL;

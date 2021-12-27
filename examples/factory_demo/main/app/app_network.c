@@ -35,6 +35,18 @@
 #include "protocol_examples_common.h"
 #include "ui_main.h"
 
+#include <time.h>
+#include <sys/time.h>
+#include "freertos/event_groups.h"
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_attr.h"
+#include "esp_sleep.h"
+#include "protocol_examples_common.h"
+#include "esp_sntp.h"
+
+
 static const char *TAG = "app_network";
 
 static void initialise_mdns(const char *file_name)
@@ -111,13 +123,17 @@ static void network_task(void *pvParam)
     netbiosns_set_name(host_name);
 
     /* Start soft-AP */
-    start_soft_ap();
+    //start_soft_ap();
 
     /* Start example connection if you want to make ESP32-S3 as station */
-    // ESP_ERROR_CHECK(example_connect());
+     ESP_ERROR_CHECK(example_connect());
 
     start_rest_server("/spiffs/web");
-
+    
+    sntp_setoperatingmode(SNTP_OPMODE_POLL);
+    sntp_setservername(0, "pool.ntp.org");
+    sntp_init();
+    
     vTaskDelete(NULL);
 }
 

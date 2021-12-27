@@ -30,6 +30,7 @@ LV_FONT_DECLARE(font_en_24)
 LV_FONT_DECLARE(font_en_64)
 
 static lv_obj_t *label_time = NULL;
+static lv_obj_t *label_date = NULL;
 static lv_obj_t *label_close = NULL;
 
 static void btn_home_cb(lv_event_t *event)
@@ -93,7 +94,7 @@ void ui_hint(bool show)
 }
 
 void ui_clock(bool show)
-{
+    {
     static lv_obj_t *panel = NULL;
     if (NULL == panel) {
         panel = lv_obj_create(lv_scr_act());
@@ -102,7 +103,7 @@ void ui_clock(bool show)
         lv_obj_set_style_border_width(panel, 0, 0);
         lv_obj_set_style_shadow_width(panel, 20, LV_STATE_DEFAULT);
         lv_obj_set_style_shadow_opa(panel, LV_OPA_10, LV_STATE_DEFAULT);
-        lv_obj_set_size(panel, 290, 180);
+        lv_obj_set_size(panel, 310, 180);
         lv_obj_align(panel, LV_ALIGN_BOTTOM_MID, 0, -15);
 
         lv_obj_add_event_cb(lv_scr_act(), btn_home_cb, LV_EVENT_HIT_TEST, NULL);
@@ -116,7 +117,7 @@ void ui_clock(bool show)
         lv_obj_align(label_time, LV_ALIGN_CENTER, 0, -20);
     }
 
-    static lv_obj_t *label_date = NULL;
+    // static lv_obj_t *label_date = NULL;
     if (NULL == label_date) {
         label_date = lv_label_create(panel);
         lv_label_set_text_static(label_date, "Thursday, October 14");
@@ -125,6 +126,14 @@ void ui_clock(bool show)
         lv_obj_align(label_date, LV_ALIGN_CENTER, 0, 30);
     }
 
+    static lv_obj_t * label_ticker = NULL;
+    if (NULL == label_ticker) {
+        label_ticker = lv_label_create(panel);
+        lv_label_set_long_mode(label_ticker, LV_LABEL_LONG_SCROLL_CIRCULAR);     /*Circular scroll*/
+        lv_obj_set_width(label_ticker, 250);
+        lv_label_set_text(label_ticker, "It is a circularly scrolling text.               It is a circularly scrolling text.");
+        lv_obj_align(label_ticker, LV_ALIGN_CENTER, 0, 60);
+    }
     if (show) {
         lv_obj_clear_flag(panel, LV_OBJ_FLAG_HIDDEN);
     } else {
@@ -132,9 +141,10 @@ void ui_clock(bool show)
     }
 }
 
-void ui_clock_set_time(char *text)
+void ui_clock_set_time(char *tim_text, char* dt_text)
 {
     if (NULL != label_time) {
-        lv_label_set_text_static(label_time, text);
+        lv_label_set_text_static(label_time, tim_text);
+        lv_label_set_text_static(label_date, dt_text);
     }
 }

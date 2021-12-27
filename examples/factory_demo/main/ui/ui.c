@@ -38,20 +38,38 @@ static void clock_blink_cb(lv_timer_t *timer)
 {
     static time_t time_val;
     static bool disp = true;
-    static char time_str[8];
+    static char time_str[11];
+    static char date_str[32];
+    // static int trTime;
+    // static char ampm[3];
 
     time(&time_val);
     struct tm time;
+
+    setenv("TZ", "CST6CDT,M3.2.0/2,M11.1.0", 1);
+    tzset();
+
     localtime_r(&time_val, &time);
+    strftime(date_str,sizeof(date_str) - 1, "%A, %B %d", &time);
+
+    // trTime = time.tm_hour;
+    // sprintf(ampm,"AM");
+
+    // if(trTime >= 12) {
+    //     trTime -= 12;
+    //     sprintf(ampm,"PM");
+    // }
 
     disp = !disp;
     if (disp) {
-        sprintf(time_str, "%02d:%02d", time.tm_hour, time.tm_min);
+        // sprintf(time_str, "%02d:%02d %s", trTime, time.tm_min, ampm);
+        strftime(time_str, sizeof(time_str) - 1, "%I:%M %p", &time);
     } else {
-        sprintf(time_str, "%02d %02d", time.tm_hour, time.tm_min);
+        // sprintf(time_str, "%02d %02d %s", trTime, time.tm_min, ampm);
+        strftime(time_str, sizeof(time_str) - 1, "%I %M %p", &time);
     }
 
-    ui_clock_set_time(time_str);
+    ui_clock_set_time(time_str, date_str);
     ui_status_bar_set_time(time_str);
 }
 

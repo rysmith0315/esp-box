@@ -92,13 +92,24 @@ void sr_handler_task(void *pvParam)
                 lv_color_t color = lv_color_hsv_to_rgb(led_state->h, led_state->s, led_state->v);
                 app_pwm_led_set_all(color.ch.red << 3, (color.ch.green_h << 5) + (color.ch.green_l << 2), color.ch.blue << 3);
                 break;
+            case SR_CMD_SKIPPY_EGG:
+                sr_anim_set_text(STR_SKIPPY_EGG);
+                app_pwm_led_set_all(30, 0, 0);
+                vTaskDelay(1000 / portTICK_PERIOD_MS); // 50us
+                app_pwm_led_set_all(0, 30, 0);
+                vTaskDelay(1000 / portTICK_PERIOD_MS); // 50us
+                app_pwm_led_set_all(30, 0, 0);
+                vTaskDelay(1000 / portTICK_PERIOD_MS); // 50us
+                app_pwm_led_set_all(0, 30, 0);
+                vTaskDelay(1000 / portTICK_PERIOD_MS); // 50us
+                app_pwm_led_set_all(0, 0, 0);
+                break;
             default:
                 /* Defalut handler */
                 ESP_LOGI(TAG, LOG_BOLD(LOG_COLOR_GREEN) "Detected : %d", cmd_id);
                 break;
             }
-
-            ui_dev_ctrl_update_state();
+            
             /* **************** ENDS REGISTER COMMAND CALLBACK **************** */
         }
     }

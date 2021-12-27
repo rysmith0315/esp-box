@@ -995,11 +995,11 @@ const active = function (ws) {
 }
 
 
-const baseurl = 'http://192.168.4.1:80/'
+const baseurl = 'http://esp-box.local:80/'
 const CONSTANT = {
     NODES_INFO_URL: `${baseurl}v1/user/nodes/info`,
     NODES_PARAMS_URL: `${baseurl}v1/user/nodes/params`,
-    HOST_IP: '192.168.4.1',
+    HOST_IP: 'esp-box.local',
     ON_STATUS: 1,
     OFF_STATUS: 0,
     DEVICEINFO: 'esp_device_info',

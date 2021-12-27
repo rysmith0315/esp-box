@@ -64,6 +64,7 @@ extern "C" {
 #define STR_LIGHT_ON        "Turn On The Light"
 #define STR_LIGHT_OFF       "Turn Off The Light"
 #define STR_LIGHT_COLOR     "Customize Color"
+#define STR_SKIPPY_EGG      "No way! Filthy Monkey!"
 
 #define VOICE_LIGHT_RED     CONFIG_EN_SPEECH_COMMAND_ID0
 #define VOICE_LIGHT_GREEN   CONFIG_EN_SPEECH_COMMAND_ID1
@@ -72,6 +73,7 @@ extern "C" {
 #define VOICE_LIGHT_ON      CONFIG_EN_SPEECH_COMMAND_ID4
 #define VOICE_LIGHT_OFF     CONFIG_EN_SPEECH_COMMAND_ID5
 #define VOICE_LIGHT_COLOR   CONFIG_EN_SPEECH_COMMAND_ID6
+#define VOICE_SKIPPY_EGG    CONFIG_EN_SPEECH_COMMAND_ID7
 
 #endif
 
@@ -96,6 +98,7 @@ typedef enum {
     SR_CMD_LIGHT_ON,
     SR_CMD_LIGHT_OFF,
     SR_CMD_CUSTOM_COLOR,
+    SR_CMD_SKIPPY_EGG
 } sr_cmd_t;
 
 /**

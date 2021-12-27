@@ -78,7 +78,7 @@ void ui_clock(bool show);
  * 
  * @param text String of current time. Should be static.
  */
-void ui_clock_set_time(char *text);
+void ui_clock_set_time(char *tim_text, char* dt_text);
 
 /**
  * @brief Show or hide hint
@@ -100,12 +100,6 @@ void ui_dev_ctrl(bool show);
  * @param show True if want to show this page. False to hide.
  */
 void ui_led(bool show);
-
-/**
- * @brief This will update LED button state
- * 
- */
-void ui_dev_ctrl_update_state(void);
 
 /**
  * @brief Show or hide network config page
